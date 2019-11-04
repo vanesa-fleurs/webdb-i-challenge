@@ -40,9 +40,14 @@ Visit [SQL Try Editor at W3Schools.com](https://www.w3schools.com/Sql/tryit.asp?
   ```
 - add a customer record for _"The Shire"_, the contact name is _"Bilbo Baggins"_ the address is _"1 Hobbit-Hole"_ in _"Bag End"_, postal code _"111"_ and the country is _"Middle Earth"_.
   ```
+  INSERT INTO Customers (CustomerName, ContactName, Address, City, PostalCode, Country)
+  VALUES ('The Shire', 'Bilbo Baggins', '1 Hobbit-Hole', 'Bag End', '111', 'Middle Earth');
   ```
 - update _Bilbo Baggins_ record so that the postal code changes to _"11122"_.
   ```
+  UPDATE Customers
+  SET PostalCode = '11122'
+  WHERE CustomerName = 'The Shire';
   ```
 
 **Clicking the `Restore Database` button in the page will repopulate the database with the original data and discard all changes you have made**.
