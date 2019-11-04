@@ -9,7 +9,7 @@ router.get('/', (req,res) => {
         .catch(error => res.status(500).json({message: `error in retrieveing accounts`}))
 })
 
-router.post('/', (req, res) => {
+router.post('/', validatePost, (req, res) => {
     const newAccount = req.body;
 
     db('accounts').insert(newAccount, 'id')
@@ -66,6 +66,28 @@ router.delete('/:id', (req,res) => {
         });
 })
 
+async function validatePost(req, res, next) {
+    const { name } = req.body;
+    const { budget } = req.body;
+
+    if (Object.keys(req.body).length === 0) {
+        res.status(400).json({ message: "Missing user data." });
+    } 
+    if(!name) {
+        res.status(400).json({ message: "Missing user name." });
+    }
+    if(!budget) {
+        res.status(400).json({ message: "Missing user budget." });
+    }
+    if(typeof name !== "string"){
+        return res.status(400).json({error: `must provide string for the user's name`});
+    }
+    if(typeof budget !== "number"){
+        return res.status(400).json({error: `must provide a number for user's budget`});
+    }
+    req.body = {name, budget}
+    next();
+}
 
 
 
